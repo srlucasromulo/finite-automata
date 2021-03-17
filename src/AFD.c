@@ -77,12 +77,27 @@ delta_t* new_delta(int q_size, int sigma_size, q_t** q, sigma_t** sigma){
 		for(int j = 0; j < sigma_size; j++)
 			matriz[i][j] = -1;
 
-	for(int i = 0; i < q_size; i ++){
-		for(int j = 0; j < sigma_size; j++)
-			printf("%d ", matriz[i][j]);
-		printf("\n");
-	}
-	return NULL;
+	matriz[0][0] = 1;	// q0,x1 -> q1
+
+	matriz[1][2] = 2;	// q1,d2 -> q2
+	matriz[1][3] = 3;	// q1,d9 -> q3
+
+	matriz[2][4] = 4;	// q2,l1 -> q4
+
+	matriz[3][5] = 5;	// q3,l2 -> q5
+
+	for(int i = 0; i < 6; i++)
+		matriz[4][i] = 1;	// q4,(E-x2) -> q1
+	matriz[4][1] = 6;		// q4,x2 -> q6
+
+	for(int i = 0; i < 6; i++)
+		matriz[5][i] = 1;	// q5,(E-x2) -> q1
+	matriz[5][1] = 6;		// q5,x2 -> q6
+
+	delta_t* delta = (delta_t*) malloc (sizeof(delta_t));
+	delta->table = matriz;
+
+	return delta;
 }
 
 

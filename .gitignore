@@ -2,8 +2,7 @@
 *~
 
 # Bin Files
-./bin/*
-.bin
+/bin
 
 # Prerequisites
 *.d
@@ -13,7 +12,7 @@
 *.ko
 *.obj
 *.elf
-./obj
+/obj
 
 # Linker output
 *.ilk
