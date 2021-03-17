@@ -1,9 +1,15 @@
 #include <string.h>
 #include "AFD.h"
 
+// *** new_automata functions *** //
 q_t** new_q();
 sigma_t** new_sigma(char*, char*, char*);
 delta_t* new_delta(int, int, q_t**, sigma_t**);
+
+// *** verify_word functions *** //
+int get_sigma_index(char, sigma_t**, int);
+
+
 
 AFD_t* new_automata(char* first, char* last, char* registration){
 
@@ -21,6 +27,56 @@ AFD_t* new_automata(char* first, char* last, char* registration){
 	return afd;
 }
 
+bool verify_word(char* word, AFD_t* afd){
+
+	int q_aux, q = 0;	// next q, current q (starts in q0)
+	int index;
+
+	int** delta = afd->delta->table;
+
+	char c;
+
+	for(int i = 0; i < strlen(word); i++){
+
+		c = word[i];
+
+		printf("\nCurrent: state: q%d, entry: %c\n", q, c);
+
+		index = get_sigma_index(c, afd->sigma, afd->sigma_size);
+		if(index == -1){
+			printf("-ERROR:Entry doesnt belong to Sigma!!\n");
+			return false;
+		}
+
+		q_aux = delta[q][index];
+		if(q_aux == -1){
+			printf("-ERROR:Undefined production!!\n");
+			return false;
+		}
+
+		printf("-delta(q%d, %c) -> q%d\n", q, c, q_aux);
+
+		q = q_aux;
+	}
+
+	if(!afd->q[q]->final)
+		printf("-Reached the end of the word, but state isnt final!!\n");
+
+	return afd->q[q]->final;
+}
+
+int get_sigma_index(char c, sigma_t** sigma, int sigma_size){
+
+	for(int i = 0; i < sigma_size; i++)
+		if(sigma[i]->value == c)
+			return i;
+
+	return -1;
+}
+
+
+
+
 q_t** new_q(){
 
 	q_t** q = (q_t**) malloc (7 * sizeof(q_t*));
@@ -34,7 +90,6 @@ q_t** new_q(){
 
 	return q;
 }
-
 
 sigma_t** new_sigma(char* first, char* last, char* registration){
 

@@ -30,9 +30,6 @@ int main(int argv, char* argc[]){
 
 	AFD_t* afd;
 	afd = new_automata(first_name, last_name, registration);
-	free(afd);
-
-	printf("AQUI <<----\n");
 
 	char* word;
 	word = (char*) malloc (50*sizeof(char));
@@ -40,11 +37,13 @@ int main(int argv, char* argc[]){
 
 		word = get_word(opt, file);
 
-		if(word != NULL)
-			printf("%s <---\n", word);
+		printf("\n--->Lets check the word %s:\n", word);
+		printf(verify_word(word, afd) ?
+			"\n--->Its accepted!!\n\n" : "\n--->Its rejected!!\n\n");
 
 	}while(word != NULL);
 
+	free(afd);
 	fclose(file);
 	return 0;
 }
