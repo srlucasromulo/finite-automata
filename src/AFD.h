@@ -29,5 +29,6 @@ typedef struct AFD_t{
 
 AFD_t* new_automata(char*, char*, char*);
 bool verify_word(char*, AFD_t*);
+void print_afd(AFD_t*);
 
 #endif

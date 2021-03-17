@@ -10,7 +10,6 @@ delta_t* new_delta(int, int, q_t**, sigma_t**);
 int get_sigma_index(char, sigma_t**, int);
 
 
-
 AFD_t* new_automata(char* first, char* last, char* registration){
 
 	AFD_t* afd;
@@ -48,6 +47,7 @@ bool verify_word(char* word, AFD_t* afd){
 			return false;
 		}
 
+		printf("INDEX ACHADO: %d <<<<-----\n", index);
 		q_aux = delta[q][index];
 		if(q_aux == -1){
 			printf("-ERROR:Undefined production!!\n");
@@ -65,6 +65,48 @@ bool verify_word(char* word, AFD_t* afd){
 	return afd->q[q]->final;
 }
 
+void print_afd(AFD_t* afd){
+
+	system("clear||cls");
+
+	printf("###################################\n");
+
+	printf("M = (Q, Sigma, Delta, q0, qf)\n");
+
+	printf("->Q = { ");
+	for(int i = 0; i < afd->q_size; i++)
+		printf("q%d ", i);
+	printf("}\n");
+
+	printf("->Sigma = { ");
+	for(int i = 0; i < afd->sigma_size; i++)
+		printf("%c ", afd->sigma[i]->value);
+	printf("}\n");
+
+	printf("->Delta = { \n");
+	for(int i = 0; i < afd->q_size; i++)
+		for(int j = 0; j < afd->sigma_size; j++)
+			if(afd->delta->table[i][j] != -1)
+				printf("\t-delta(q%d, %c) -> q%d\n",
+				i, afd->sigma[j]->value, afd->delta->table[i][j]);
+	printf("}\n");
+
+	printf("->q0 = q0\n");
+
+	printf("->qf = { ");
+	for(int i = 0; i < afd->q_size; i++)
+		if(afd->q[i]->final)
+			printf("q%d ", i);
+	printf("}\n");
+
+
+
+	printf("###################################\n");
+
+}
+
+
+// *** verify_word functions *** ///
 int get_sigma_index(char c, sigma_t** sigma, int sigma_size){
 
 	for(int i = 0; i < sigma_size; i++)
@@ -75,8 +117,7 @@ int get_sigma_index(char c, sigma_t** sigma, int sigma_size){
 }
 
 
-
-
+// *** new_automata functions *** //
 q_t** new_q(){
 
 	q_t** q = (q_t**) malloc (7 * sizeof(q_t*));

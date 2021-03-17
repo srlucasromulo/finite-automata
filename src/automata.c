@@ -35,11 +35,22 @@ int main(int argv, char* argc[]){
 	word = (char*) malloc (50*sizeof(char));
 	do{
 
+		print_afd(afd);
+
 		word = get_word(opt, file);
 
-		printf("\n--->Lets check the word %s:\n", word);
-		printf(verify_word(word, afd) ?
-			"\n--->Its accepted!!\n\n" : "\n--->Its rejected!!\n\n");
+		if(word){
+			printf("Next word: %s! Press ENTER to check it out!!", word);
+			getc(stdin);
+
+			printf("\n--->Lets check the word %s:\n", word);
+			printf(verify_word(word, afd) ?
+				"\n--->Its accepted!!\n\n" : "\n--->Its rejected!!\n\n");
+		}
+		else printf("\n### Thats enough for today, huh?! Good bye!!\n");
+
+		printf("Press ENTER to continue...");
+		getc(stdin);
 
 	}while(word != NULL);
 
