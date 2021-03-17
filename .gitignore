@@ -1,9 +1,9 @@
 # my bkps
 *~
 
-# Source Files
+# Bin Files
 ./bin/*
-./bin
+.bin
 
 # Prerequisites
 *.d

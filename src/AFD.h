@@ -11,7 +11,7 @@ typedef struct q_t{
 
 typedef struct sigma_t{
 	char* label;
-	int size;
+	char value;
 } sigma_t;
 
 typedef struct delta_t{
@@ -20,8 +20,9 @@ typedef struct delta_t{
 
 typedef struct AFD_t{
 	q_t** q;
-	sigma_t* sigma;
+	sigma_t** sigma;
 	delta_t* delta;
+	int q_size, sigma_size;
 	//q0 = q[0]
 	//qf = any q with the final flag
 } AFD_t;
