@@ -1,5 +1,5 @@
-#ifndef __AFD__
-#define __AFD__
+#ifndef __AFN__
+#define __AFN__
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -18,17 +18,19 @@ typedef struct delta_t{
 	int** table;
 } delta_t;
 
-typedef struct AFD_t{
+typedef struct AFN_t{
 	q_t** q;
 	sigma_t** sigma;
 	delta_t* delta;
 	int q_size, sigma_size;
 	//q0 = q[0]
 	//qf = any q with the final flag
-} AFD_t;
+} AFN_t;
 
-AFD_t* new_automata(char*, char*, char*);
-bool verify_word(char*, AFD_t*);
-void print_afd(AFD_t*);
+
+AFN_t* new_automata(char*, char*, char*);
+void print_afn(AFN_t*);
+bool verify_word(char*, AFN_t*);
+
 
 #endif

@@ -1,5 +1,5 @@
 #include <ctype.h>
-#include "AFD.h"
+#include "AFN.h"
 
 char* get_word(char, FILE*);
 
@@ -28,14 +28,14 @@ int main(int argv, char* argc[]){
 	fscanf(file, "%s %s\n", first_name, last_name);
 	fscanf(file, "%s\n\n", registration);
 
-	AFD_t* afd;
-	afd = new_automata(first_name, last_name, registration);
+	AFN_t* afn;
+	afn = new_automata(first_name, last_name, registration);
 
 	char* word;
 	word = (char*) malloc (50*sizeof(char));
 	do{
 
-		print_afd(afd);
+		print_afn(afn);
 
 		word = get_word(opt, file);
 
@@ -43,8 +43,8 @@ int main(int argv, char* argc[]){
 			printf("Next word: %s! Press ENTER to check it out!!", word);
 			getc(stdin);
 
-			printf("\n--->Lets check the word %s:\n", word);
-			printf(verify_word(word, afd) ?
+			printf("\n--->Lets check the word %s:\n\n", word);
+			printf(verify_word(word, afn) ?
 				"\n--->Its accepted!!\n\n" : "\n--->Its rejected!!\n\n");
 		}
 		else printf("\n### Thats enough for today, huh?! Good bye!!\n");
@@ -54,7 +54,7 @@ int main(int argv, char* argc[]){
 
 	}while(word != NULL);
 
-	free(afd);
+	free(afn);
 	fclose(file);
 	return 0;
 }
