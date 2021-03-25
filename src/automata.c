@@ -5,14 +5,14 @@ char* get_word(char, FILE*);
 
 int main(int argv, char* argc[]){
 
-	if(argv != 3){
-			printf("Wrong number of arguments.\n");
-		return 1;
-	}
-
 	char opt = toupper(argc[1][0]);
 	if(opt != 'F' && opt != 'L'){
 		printf("Wrong input option. (f/l)\n");
+		return 1;
+	}
+
+	if((argv != 3 && opt == 'F') || (argv != 2 && opt == 'L')){
+			printf("Wrong number of arguments.\n");
 		return 1;
 	}
 
@@ -25,12 +25,15 @@ int main(int argv, char* argc[]){
 	char first_name[25], last_name[25];
 	char registration[10];
 
+	// extracts name and registration from file
 	fscanf(file, "%s %s\n", first_name, last_name);
 	fscanf(file, "%s\n\n", registration);
 
+	// creates a AFN using extracted name and registration
 	AFN_t* afn;
 	afn = new_automata(first_name, last_name, registration);
 
+	// gets and verifies the words
 	char* word;
 	word = (char*) malloc (50*sizeof(char));
 	do{
@@ -64,6 +67,7 @@ char* get_word(char opt, FILE* file){
 	char* word;
 	word = (char*) malloc (50 * sizeof(char));
 
+	// read next word from file
 	if(opt == 'F'){
 
 		if(!feof(file)){
@@ -71,13 +75,14 @@ char* get_word(char opt, FILE* file){
 			return word;
 		}
 	}
+	// reads next word from input
 	else {
 
 		char yn = '\0';
 		while(yn != 'Y' && yn != 'N'){
 
 			printf("Test a word? (y/n) _/>");
-			scanf("%c", &yn);
+			yn = getc(stdin);
 			yn = toupper(yn);
 
 			if(yn != 'Y' && yn != 'N') printf("Wrong input!\n");
