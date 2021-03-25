@@ -1,5 +1,6 @@
 # finite-automata
 > v:0.9.0
+> 
 > flags p/ execucao: f(File input) ou l(Line input)
 
 ### Modificar as informações no arquivo init.txt:
