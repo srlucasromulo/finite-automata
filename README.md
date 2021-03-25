@@ -1,10 +1,15 @@
 # finite-automata
 > v:0.9.0
-> 
-> flags p/ execucao: f(File input) ou l(Line input)
 
 ### Modificar as informações no arquivo init.txt:
-As palavras vão nesse arquivo na execucao com f
+> Pode ser usado por qualquer aluno que tem matrícula na UFSJ
+- Execução com entrada padrão:
+```
+nome segundo_nome
+matricula
+```
+- Execução com entrada por arquivo:
+> As palavras são adicionadas ao arquivo init abaixo das informações
 ```
 nome segundo_nome
 matricula
@@ -19,5 +24,9 @@ palavraN
 cd pasta/do/projeto
 make  (pode fazer o install direto se quiser)
 make install
-./bin/automata <flag> <qualquer_coisa>
+cd bin
 ```
+- Com arquivo de entrada:
+``` ./automata f ```
+- Entrada padrão:
+``` ./automata l ```
