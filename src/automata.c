@@ -5,14 +5,14 @@ char* get_word(char, FILE*);
 
 int main(int argv, char* argc[]){
 
-	char opt = toupper(argc[1][0]);
-	if(opt != 'F' && opt != 'L'){
-		printf("Wrong input option. (f/l)\n");
+	if(argv != 2){
+			printf("Wrong number of arguments.\n");
 		return 1;
 	}
 
-	if((argv != 3 && opt == 'F') || (argv != 2 && opt == 'L')){
-			printf("Wrong number of arguments.\n");
+	char opt = toupper(argc[1][0]);
+	if(opt != 'F' && opt != 'L'){
+		printf("Wrong input option. (f/l)\n");
 		return 1;
 	}
 
